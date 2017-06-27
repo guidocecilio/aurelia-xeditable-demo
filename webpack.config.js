@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const { AureliaPlugin } = require('aurelia-webpack-plugin');
+const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plugin');
 const { optimize: { CommonsChunkPlugin }, ProvidePlugin } = require('webpack')
 
 // config helpers:
@@ -66,7 +66,10 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
         use: cssRules,
       },
       { test: /\.html$/i, loader: 'html-loader' },
-      { test: /\.js$/i, loader: 'babel-loader', exclude: nodeModulesDir,
+      { 
+        test: /\.js$/i,
+        loader: 'babel-loader',
+        exclude: nodeModulesDir,
         options: coverage ? { sourceMap: 'inline', plugins: [ 'istanbul' ] } : {},
       },
       { test: /\.json$/i, loader: 'json-loader' },
@@ -84,6 +87,9 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
   },
   plugins: [
     new AureliaPlugin(),
+    new ModuleDependenciesPlugin({
+      'aurelia-xeditable': ['./hello-world']
+    }),
     new ProvidePlugin({
       'Promise': 'bluebird',
       '$': 'jquery',
