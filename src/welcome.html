@@ -1,5 +1,24 @@
 <template>
-  <hello-world></hello-world>
+  
+  <h4>Aurelia-xeditable Select local (Bootstrap 3)</h4>
+  <!--<div ng-app="app" ng-controller="Ctrl">
+    <a href="#" editable-select="user.status" e-ng-options="s.value as s.text for s in statuses">
+      {{ showStatus() }}
+    </a>
+  </div>-->
+  <div>
+    <a href="#"
+      editable-select="
+        value.bind: value;
+        options.bind: values;
+        buttons: yes;
+        editable-theme: bs3
+      ">
+      ${getDisplayValue()}
+    </a>
+  </div>
+
+
   <section class="au-animate">
     <h2>${heading}</h2>
     <form role="form" submit.delegate="submit()">
